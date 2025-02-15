@@ -1,33 +1,59 @@
 var userClickedPattern = [];
 var gamePattern = [];
-var buttonColors = ["red" , "blue" , "green" , "yellow"];
- 
+var buttonColors = ["red", "blue", "green", "yellow"];
+var level = 0;
+var playStart = false;
 
-function nextSequence() {
-    
-    var randomNumber = Math.floor(Math.random()*4);
-    var randomChoosenColor = buttonColors[randomNumber];
-    gamePattern.push(randomChoosenColor);
-    $("#" + randomChoosenColor ).fadeOut(500).fadeIn(500);
-
-    playSound(randomChoosenColor);
-    
-    
-}
+$(document).keypress(function () {
+  if (!playStart) {
+    $("#level-title").text("Level " + level);
+    nextSequence();
+    playStart = true;
+  }
+});
 
 $(".btn").click(function () {
-     var userChoosenColor = (this.id);
-     userClickedPattern.push(userChoosenColor);
-     console.log(userClickedPattern);
+  var userChoosenColor = $(this).attr("id");
 
-    $("#" + userChoosenColor).fadeOut(500).fadeIn(500); 
-    playSound(userChoosenColor);
+  userClickedPattern.push(userChoosenColor);
+  console.log(userClickedPattern);
+  animatePress(userChoosenColor);
+  playSound(userChoosenColor);
+  checkAnswer((userChoosenColor.length)-1);
+});
 
-    
-     
-})
+function nextSequence() {
+  var randomNumber = Math.floor(Math.random() * 4);
+  var randomChoosenColor = buttonColors[randomNumber];
+  gamePattern.push(randomChoosenColor);
+  $("#" + randomChoosenColor)
+    .fadeOut(500)
+    .fadeIn(500);
+  playSound(randomChoosenColor);
+  console.log(gamePattern);
+
+  $("#level-title").text("Level " + level);
+  level++;
+}
 
 function playSound(name) {
-    var audio = new Audio("./sounds/"+ name +".mp3");
-    audio.play();
+  var audio = new Audio("./sounds/" + name + ".mp3");
+  audio.play();
+}
+
+function animatePress(currentColor) {
+  $("." + currentColor).addClass("pressed");
+
+  setTimeout(() => {
+    $("." + currentColor).removeClass("pressed");
+  }, 100);
+}
+
+function checkAnswer(currentLevel) {
+  if (userClickedPattern[currentLevel] === gamePattern[currentLevel]) {
+    console.log("Success");
+  }
+  else{
+    console.log("Wrong");
+  }
 }
