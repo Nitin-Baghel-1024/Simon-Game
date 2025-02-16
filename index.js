@@ -57,13 +57,13 @@ function checkAnswer(currentLevel) {
       }, 1000);
     }
   } else {
-
     wrongAnswer();
     $("body").addClass("game-over");
     setTimeout(function () {
       $("body").removeClass("game-over");
     }, 200);
     $("h1").text("Game-Over");
+    startOver();
   }
 }
 
@@ -72,3 +72,8 @@ function wrongAnswer() {
   audio1.play();
 }
 
+function startOver() {
+  level = 0;
+  gamePattern = [];
+  playStart = false ;
+}
