@@ -13,9 +13,7 @@ $(document).keypress(function () {
 });
 
 function nextSequence() {
-
   userClickedPattern = [];
-
 
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChoosenColor = buttonColors[randomNumber];
@@ -59,6 +57,18 @@ function checkAnswer(currentLevel) {
       }, 1000);
     }
   } else {
-    console.log("Wrong");
+
+    wrongAnswer();
+    $("body").addClass("game-over");
+    setTimeout(function () {
+      $("body").removeClass("game-over");
+    }, 200);
+    $("h1").text("Game-Over");
   }
 }
+
+function wrongAnswer() {
+  var audio1 = new Audio("./sounds/wrong.mp3");
+  audio1.play();
+}
+
