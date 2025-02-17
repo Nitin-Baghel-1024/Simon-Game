@@ -1,4 +1,4 @@
-// Setting the initial values for game 
+// Setting the initial values for game
 
 var userClickedPattern = [];
 var gamePattern = [];
@@ -16,18 +16,11 @@ $(document).keypress(function () {
   }
 });
 
-$(document).touchstart(function(){
-  if (!playStart) {
-    $("#level-title").text("Level " + level);
-    nextSequence();
-    playStart = true;
-  }
-})
-
-// function to generate the random game-sequence 
+// function to generate the random game-sequence
 
 function nextSequence() {
-  userClickedPattern = [];   /*To reset the value of user-clicked-pattern ,everytime the right sequence is clicked by the user */
+  userClickedPattern =
+    []; /*To reset the value of user-clicked-pattern ,everytime the right sequence is clicked by the user */
 
   var randomNumber = Math.floor(Math.random() * 4);
   var randomChoosenColor = buttonColors[randomNumber];
@@ -40,7 +33,6 @@ function nextSequence() {
   level++;
   $("#level-title").text("Level " + level);
 }
-
 
 /* Added eventlistener to the buttons so every time the button is clicked it is triggerd */
 $(".btn").click(function () {
@@ -77,7 +69,6 @@ function checkAnswer(currentLevel) {
         nextSequence();
       }, 1000);
     }
-
   } else {
     wrongAnswer();
     $("body").addClass("game-over");
@@ -98,5 +89,5 @@ function wrongAnswer() {
 function startOver() {
   level = 0;
   gamePattern = [];
-  playStart = false ;
+  playStart = false;
 }
