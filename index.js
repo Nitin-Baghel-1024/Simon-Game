@@ -16,6 +16,14 @@ $(document).keypress(function () {
   }
 });
 
+$(document).touchstart(function(){
+  if (!playStart) {
+    $("#level-title").text("Level " + level);
+    nextSequence();
+    playStart = true;
+  }
+})
+
 // function to generate the random game-sequence 
 
 function nextSequence() {
